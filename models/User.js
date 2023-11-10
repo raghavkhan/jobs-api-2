@@ -29,7 +29,10 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.createJWT = function () {
-  return jwt.sign({ name: 'tarun', id: 786 }, process.env.JWT_SECRET, {
+  // return jwt.sign({ name: 'tarun', id: 786 }, process.env.JWT_SECRET, {
+  //   expiresIn: process.env.JWT_LIFETIME,
+  // });
+  return jwt.sign({ name: this.name, id: this._id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_LIFETIME,
   });
 };
