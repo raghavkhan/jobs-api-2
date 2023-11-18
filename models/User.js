@@ -29,12 +29,17 @@ const UserSchema = new Schema({
 });
 
 UserSchema.methods.createJWT = function () {
+  console.log(`userId: ${this._id} --------- USERID IN JWT SIGN`);
   // return jwt.sign({ name: 'tarun', id: 786 }, process.env.JWT_SECRET, {
   //   expiresIn: process.env.JWT_LIFETIME,
   // });
-  return jwt.sign({ name: this.name, id: this._id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_LIFETIME,
-  });
+  return jwt.sign(
+    { name: this.name, userId: this._id },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: process.env.JWT_LIFETIME,
+    }
+  );
 };
 
 UserSchema.methods.comparePassword = async function (requestedPassword) {
